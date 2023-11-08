@@ -161,3 +161,4 @@ cython_debug/
 
 # virtual env
 fas-dev-env/
+fas_dev

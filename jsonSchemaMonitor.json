@@ -1,31 +1,207 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Monitor",
-    "type": "array",
-    "items": {
-      "type": "object",
-      "properties": {
-        "config": {
-          "type": "string"
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Monitor",
+  "type": "object",
+  "properties": {
+    "config": {
+      "type": "string"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "counter": {
+            "type": "number"
+          },
+          "finished": {
+            "type": "object",
+            "properties": {
+              "day": {
+                "type": "number"
+              },
+              "hour": {
+                "type": "number"
+              },
+              "millisecond": {
+                "type": "number"
+              },
+              "minute": {
+                "type": "number"
+              },
+              "month": {
+                "type": "number"
+              },
+              "second": {
+                "type": "number"
+              },
+              "year": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "day",
+              "hour",
+              "millisecond",
+              "minute",
+              "month",
+              "second",
+              "year"
+            ]
+          },
+          "quantifier": {
+            "type": "number"
+          },
+          "started": {
+            "type": "object",
+            "properties": {
+              "day": {
+                "type": "number"
+              },
+              "hour": {
+                "type": "number"
+              },
+              "millisecond": {
+                "type": "number"
+              },
+              "minute": {
+                "type": "number"
+              },
+              "month": {
+                "type": "number"
+              },
+              "second": {
+                "type": "number"
+              },
+              "year": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "day",
+              "hour",
+              "millisecond",
+              "minute",
+              "month",
+              "second",
+              "year"
+            ]
+          },
+          "type": {
+            "type": "string"
+          }
         },
-        "metrics": {
-          "type": "array",
-          "items": {}
+        "required": [
+          "counter",
+          "finished",
+          "quantifier",
+          "started",
+          "type"
+        ]
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "counter": {
+            "type": "number"
+          },
+          "finished": {
+            "type": "object",
+            "properties": {
+              "day": {
+                "type": "number"
+              },
+              "hour": {
+                "type": "number"
+              },
+              "millisecond": {
+                "type": "number"
+              },
+              "minute": {
+                "type": "number"
+              },
+              "month": {
+                "type": "number"
+              },
+              "second": {
+                "type": "number"
+              },
+              "year": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "day",
+              "hour",
+              "millisecond",
+              "minute",
+              "month",
+              "second",
+              "year"
+            ]
+          },
+          "high": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "started": {
+            "type": "object",
+            "properties": {
+              "day": {
+                "type": "number"
+              },
+              "hour": {
+                "type": "number"
+              },
+              "millisecond": {
+                "type": "number"
+              },
+              "minute": {
+                "type": "number"
+              },
+              "month": {
+                "type": "number"
+              },
+              "second": {
+                "type": "number"
+              },
+              "year": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "day",
+              "hour",
+              "millisecond",
+              "minute",
+              "month",
+              "second",
+              "year"
+            ]
+          },
+          "value": {
+            "type": "number"
+          }
         },
-        "events": {
-          "type": "array",
-          "items": {}
-        }
-      },
-      "required": [
-        "config",
-        "metrics",
-        "events"
-      ]
+        "required": [
+          "counter",
+          "finished",
+          "high",
+          "name",
+          "started",
+          "value"
+        ]
+      }
     }
-  }
-
-  
-
-  
-
+  },
+  "required": [
+    "config",
+    "events",
+    "metrics"
+  ]
+}

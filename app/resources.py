@@ -1,13 +1,13 @@
-from flask_restx import Resource, Namespace 
-from flask import jsonify, request
+from flask_restx import Resource, Namespace, reqparse
+from flask import jsonify
 import requests
+from genson import SchemaBuilder
 
 ns = Namespace("ews")
 
-@ns.route("/hello")
-class Hello(Resource):
-    def get(self):
-        return {"hello": "restx"}
+# Define the request parser
+parser = reqparse.RequestParser()
+parser.add_argument('config', type=str, required=True, help='Please choose a configuration')
 
 @ns.route("/monitor")
 class Monitor(Resource):
@@ -26,30 +26,29 @@ class Monitor(Resource):
         except Exception as e:
             return jsonify({'error': str(e)}), 500
 
-
 @ns.route("/execute")
 class Execute(Resource):
+    @ns.expect(parser)  # Apply the parser to expect request data
+    @ns.doc(body={'config': 'Please choose a configuration'})  # Add description for SwaggerUI
     def put(self):
         try:
-            # Get the JSON data from the request body
-            request_data = request.get_json()
+            # Parse the request body
+            args = parser.parse_args()
 
-            if not request_data:
-                return jsonify({'error': 'Invalid JSON data in the request'}), 400
+            # Get the config
+            config = args['config']
 
-            # Make a POST request to the external API with the JSON data
+            # Make a POST request to the external API with the parsed data
             external_api_url = 'http://localhost:2011/meta/set_config'
-            response = requests.post(external_api_url, json=request_data)
+            response = requests.post(external_api_url, json={'config': config})
 
             # Check if the request to the external API was successful
             if response.status_code == 200:
-                return 200
+                return 'Success', 200
             else:
                 return jsonify({'error': 'Failed to fetch data from the external API'}), 500
         except Exception as e:
-            return jsonify({'error': str(e)}), 500        
-        
-
+            return jsonify({'error': str(e)}), 500
 
 @ns.route("/adaptation_options")
 class Adaptation(Resource):
@@ -67,3 +66,65 @@ class Adaptation(Resource):
                 return jsonify({'error': 'Failed to fetch data from the external API'}), 500
         except Exception as e:
             return jsonify({'error': str(e)}), 500            
+
+@ns.route("/monitor_schema")
+class MonitorSchema(Resource):
+    def get(self):
+        try:
+            # Make a request to the external API
+            external_api_url = 'http://localhost:2011/meta/get_perception'
+            response = requests.get(external_api_url)
+            # Check if the request to the external API was successful
+            if response.status_code == 200:
+                data = response.json()
+                # Generate JSON schema from the received JSON response
+                builder = SchemaBuilder()
+                builder.add_object(data)
+                schema = builder.to_schema()
+                # Return the generated schema
+                return jsonify({'schema': schema})
+            else:
+                return jsonify({'error': 'Failed to fetch data from the external API'}), 500
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
+@ns.route("/execute_schema")
+class ExecuteSchema(Resource):
+    def get(self):
+        try:
+            # Make a request to the external API
+            external_api_url = 'http://localhost:2011/meta/get_config'
+            response = requests.get(external_api_url)
+            # Check if the request to the external API was successful
+            if response.status_code == 200:
+                data = response.json()
+                # Generate JSON schema from the received JSON response
+                builder = SchemaBuilder()
+                builder.add_object(data)
+                schema = builder.to_schema()
+                # Return the generated schema
+                return jsonify({'schema': schema})
+            else:
+                return jsonify({'error': 'Failed to fetch data from the external API'}), 500
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+@ns.route("/adaptation_options_schema")
+class MonitorSchema(Resource):
+    def get(self):
+        try:
+            # Make a request to the external API
+            external_api_url = 'http://localhost:2011/meta/get_all_configs'
+            response = requests.get(external_api_url)
+            # Check if the request to the external API was successful
+            if response.status_code == 200:
+                data = response.json()
+                # Generate JSON schema from the received JSON response
+                builder = SchemaBuilder()
+                builder.add_object(data)
+                schema = builder.to_schema()
+                # Return the generated schema
+                return jsonify({'schema': schema})
+            else:
+                return jsonify({'error': 'Failed to fetch data from the external API'}), 500
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500

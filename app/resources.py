@@ -14,7 +14,7 @@ class Monitor(Resource):
     def get(self):
         try:
             # Make a request to the external API
-            external_api_url = 'http://localhost:2011/meta/get_perception'
+            external_api_url = 'http://host.docker.internal:2011/meta/get_perception'
             response = requests.get(external_api_url)
 
             # Check if the request to the external API was successful
@@ -38,7 +38,7 @@ class Execute(Resource):
             config = args['config']
 
             # Make a POST request to the external API with the parsed data
-            external_api_url = 'http://localhost:2011/meta/set_config'
+            external_api_url = 'http://host.docker.internal:2011/meta/set_config'
             response = requests.post(external_api_url, json={'config': config})
 
             # Check if the request to the external API was successful
@@ -54,7 +54,7 @@ class Adaptation(Resource):
     def get(self):
         try:
             # Make a request to the external API
-            external_api_url = 'http://localhost:2011/meta/get_all_configs'
+            external_api_url = 'http://host.docker.internal:2011/meta/get_all_configs'
             response = requests.get(external_api_url)
 
             # Check if the request to the external API was successful
@@ -71,7 +71,7 @@ class MonitorSchema(Resource):
     def get(self):
         try:
             # Make a request to the external API
-            external_api_url = 'http://localhost:2011/meta/get_perception'
+            external_api_url = 'http://host.docker.internal:2011/meta/get_perception'
             response = requests.get(external_api_url)
             # Check if the request to the external API was successful
             if response.status_code == 200:
@@ -92,7 +92,7 @@ class ExecuteSchema(Resource):
     def get(self):
         try:
             # Make a request to the external API
-            external_api_url = 'http://localhost:2011/meta/get_config'
+            external_api_url = 'http://host.docker.internal:2011/meta/get_config'
             response = requests.get(external_api_url)
             # Check if the request to the external API was successful
             if response.status_code == 200:
@@ -112,7 +112,7 @@ class MonitorSchema(Resource):
     def get(self):
         try:
             # Make a request to the external API
-            external_api_url = 'http://localhost:2011/meta/get_all_configs'
+            external_api_url = 'http://host.docker.internal:2011/meta/get_all_configs'
             response = requests.get(external_api_url)
             # Check if the request to the external API was successful
             if response.status_code == 200:

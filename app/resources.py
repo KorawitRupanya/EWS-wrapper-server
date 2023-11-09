@@ -7,7 +7,7 @@ ns = Namespace("ews")
 
 # Define the request parser
 parser = reqparse.RequestParser()
-parser.add_argument('config', type=str, required=True, help='Please choose a configuration')
+parser.add_argument('config', type=str, required=True, help='Please choose a configuration', location='json')
 
 @ns.route("/monitor")
 class Monitor(Resource):
@@ -29,7 +29,6 @@ class Monitor(Resource):
 @ns.route("/execute")
 class Execute(Resource):
     @ns.expect(parser)  # Apply the parser to expect request data
-    @ns.doc(body={'config': 'Please choose a configuration'})  # Add description for SwaggerUI
     def put(self):
         try:
             # Parse the request body

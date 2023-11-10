@@ -3,7 +3,7 @@ from flask import jsonify
 import requests
 from genson import SchemaBuilder
 
-ns = Namespace("ews")
+ns = Namespace('')
 
 # Define the request parser
 parser = reqparse.RequestParser()

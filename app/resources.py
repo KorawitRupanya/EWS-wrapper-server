@@ -85,7 +85,7 @@ class MonitorSchema(Resource):
                 builder.add_object(data)
                 schema = builder.to_schema()
                 # Return the generated schema
-                return jsonify({'schema': schema})
+                return jsonify(schema)
             else:
                 return jsonify({'error': 'Failed to fetch data from the external API'}), 500
         except Exception as e:
@@ -106,7 +106,7 @@ class ExecuteSchema(Resource):
                 builder.add_object(data)
                 schema = builder.to_schema()
                 # Return the generated schema
-                return jsonify({'schema': schema})
+                return jsonify(schema)
             else:
                 return jsonify({'error': 'Failed to fetch data from the external API'}), 500
         except Exception as e:
@@ -127,7 +127,7 @@ class AdaptationOptionsSchema(Resource):
                 builder.add_object(data)
                 schema = builder.to_schema()
                 # Return the generated schema
-                return jsonify({'schema': schema})
+                return jsonify(schema)
             else:
                 return jsonify({'error': 'Failed to fetch data from the external API'}), 500
         except Exception as e:

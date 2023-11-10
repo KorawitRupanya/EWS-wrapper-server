@@ -111,8 +111,9 @@ class ExecuteSchema(Resource):
                 return jsonify({'error': 'Failed to fetch data from the external API'}), 500
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+            
 @ns.route("/adaptation_options_schema")
-class MonitorSchema(Resource):
+class AdaptationOptionsSchema(Resource):
     def get(self):
         try:
             # Make a request to the external API

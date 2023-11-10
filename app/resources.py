@@ -21,10 +21,12 @@ class Monitor(Resource):
             if response.status_code == 200:
                 data = response.json()
 
-                # Convert the list to a dictionary
-                data_dict = {'data': data}
-
-                return jsonify(data_dict)  # Return the dictionary response from the external API
+                # Check if data is not empty
+                if data:
+                    # Return the first dictionary in the list
+                    return jsonify(data[0])
+                else:
+                    return jsonify({'error': 'No data received from the external API'}), 500
             else:
                 return jsonify({'error': 'Failed to fetch data from the external API'}), 500
         except Exception as e:
@@ -70,6 +72,27 @@ class Adaptation(Resource):
         except Exception as e:
             return jsonify({'error': str(e)}), 500            
 
+# @ns.route("/monitor_schema")
+# class MonitorSchema(Resource):
+#     def get(self):
+#         try:
+#             # Make a request to the external API
+#             external_api_url = 'http://host.docker.internal:2011/meta/get_perception'
+#             response = requests.get(external_api_url)
+#             # Check if the request to the external API was successful
+#             if response.status_code == 200:
+#                 data = response.json()
+#                 # Generate JSON schema from the received JSON response
+#                 builder = SchemaBuilder()
+#                 builder.add_object(data)
+#                 schema = builder.to_schema()
+#                 # Return the generated schema
+#                 return jsonify(schema)
+#             else:
+#                 return jsonify({'error': 'Failed to fetch data from the external API'}), 500
+#         except Exception as e:
+#             return jsonify({'error': str(e)}), 500
+
 @ns.route("/monitor_schema")
 class MonitorSchema(Resource):
     def get(self):
@@ -84,12 +107,18 @@ class MonitorSchema(Resource):
                 builder = SchemaBuilder()
                 builder.add_object(data)
                 schema = builder.to_schema()
+                # Move 'type' and 'properties' keys up a level if 'items' key exists
+                if 'items' in schema:
+                    schema['type'] = schema['items']['type']
+                    schema['properties'] = schema['items']['properties']
+                    del schema['items']
                 # Return the generated schema
                 return jsonify(schema)
             else:
                 return jsonify({'error': 'Failed to fetch data from the external API'}), 500
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+
 
 @ns.route("/execute_schema")
 class ExecuteSchema(Resource):

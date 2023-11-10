@@ -20,7 +20,11 @@ class Monitor(Resource):
             # Check if the request to the external API was successful
             if response.status_code == 200:
                 data = response.json()
-                return jsonify(data)  # Return the JSON response from the external API
+
+                # Convert the list to a dictionary
+                data_dict = {'data': data}
+
+                return jsonify(data_dict)  # Return the dictionary response from the external API
             else:
                 return jsonify({'error': 'Failed to fetch data from the external API'}), 500
         except Exception as e:

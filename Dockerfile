@@ -16,8 +16,8 @@ COPY . .
 # Set the environment variable FLASK_APP to specify the application factory for Flask
 ENV FLASK_APP app:create_app
 
-# Expose port 5000 to the outside world (default Flask port)
-EXPOSE 5000
+# Expose port 5001 to the outside world (default Flask port)
+EXPOSE 5001
 
 # Define the default command to run when the container starts
 CMD ["flask", "run", "--host=0.0.0.0"]

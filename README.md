@@ -20,10 +20,10 @@ After that please follow these steps:
 
 2. **Run the Docker Container:**
     ```bash
-    docker run -p 5000:5000 fas-api
+    docker run -p 5001:5000 fas-api
     ```
 
-   The application should now be accessible at [http://localhost:5000](http://localhost:5000).
+   The application should now be accessible at [http://localhost:5001](http://localhost:5001).
 
    _> :warning: ** Note: Make sure Docker is installed on your machine.**_
 

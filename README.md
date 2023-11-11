@@ -15,12 +15,12 @@ After that please follow these steps:
 
 1. **Build the Docker Image:**
     ```bash
-    docker build -t fas-api .
+    docker build -t ews-wrapper-server .
     ```
 
 2. **Run the Docker Container:**
     ```bash
-    docker run -p 5001:5000 fas-api
+    docker run -p 5001:5000 ews-wrapper-server
     ```
 
    The application should now be accessible at [http://localhost:5001](http://localhost:5001).
@@ -29,7 +29,7 @@ After that please follow these steps:
 
 ## Project Directories
 
-- __fas\-api__
+- __EWS\-wrapper\-server__
    - [Dockerfile](Dockerfile): Instructions for building the Docker image.
    - __app__ : This directory contains the main application code.
      - [\_\_init\_\_.py](app/__init__.py) : Entry point for creating the Flask application.

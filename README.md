@@ -11,13 +11,15 @@ A strategic wrapper has been implemented using the Flask API to encapsulate the 
 
 As a wrapper you would need to run the EWS first please follow the instruction in the quick start part of the README of EWS [here](https://github.com/robertovrf/emergent_web_server#quick-start)
 
+_> :warning: ** Note: Make sure Docker is installed on your machine.**_
 After that please follow these steps:
 
 1. **Build the Docker Image:**
     ```bash
     docker build -t ews-wrapper-server .
     ```
-
+ _> :warning: ** Note: IF you want to test the UPISAS, you DO NOT need to run the container. UPISAS will start the container after it find the Docker Image.**_
+ 
 2. **Run the Docker Container:**
     ```bash
     docker run -p 5001:5000 ews-wrapper-server
@@ -25,7 +27,6 @@ After that please follow these steps:
 
    The application should now be accessible at [http://localhost:5001](http://localhost:5001).
 
-   _> :warning: ** Note: Make sure Docker is installed on your machine.**_
 
 ## Project Directories
 
